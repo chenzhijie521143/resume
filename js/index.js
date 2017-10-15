@@ -14,6 +14,7 @@ window.onload=function(){
 	   var oP6content=document.getElementById('page6-content');
 	   var oP7content=document.getElementById('page7-content');
 	   var thansYou=document.getElementById('thank-you');
+	   var animate=false;//判断当前动画是否在执行中
 
 	  /* timer=setInterval(function(){
 		  console.log(num);
@@ -30,6 +31,8 @@ window.onload=function(){
 	  function next(){
 		  //clearInterval(timer);
 		  console.log(num);
+	   if(!animate)
+		{
 	      num++;
 		 
           if(num%7==1){
@@ -47,7 +50,7 @@ window.onload=function(){
 		  }else if(num%7==0){
 		    switch7();
 		  }
-
+	    }
 	   }
 	   addHandler(oAnswer,'tap',switch1);
 	   //向上滑第一屏
@@ -55,6 +58,7 @@ window.onload=function(){
 	   
 	   //切换第一屏
 	   function switch1(){
+		 animate=true;
 		 var oLi=list0.getElementsByTagName('li');
 		 startMove(oPage[0],{opacity:0},function(){
 		   oPage[0].style.display='none';
@@ -74,6 +78,7 @@ window.onload=function(){
 			       startMove(oLi[3],{opacity:100},function(){
 			          startMove(oLi[4],{opacity:100},function(){
 			              startMove(oLi[5],{opacity:100});
+						  animate=false;
 			        });
 			     });
 			  });
@@ -96,6 +101,7 @@ window.onload=function(){
 
 	   //切换第二屏
 	   function switch2(){
+		   animate=true;
 		  var oLi1=list1.getElementsByTagName('li');
 		  oPage[2].style.webkitTransition="-webkit-transform 3000ms";
 	      oPage[2].style.webkitTransform='translate(0px,0px)';
@@ -109,6 +115,7 @@ window.onload=function(){
 					   startMove(oLi1[3],{height:50},function(){
 						  startMove(oLi1[4],{height:50},function(){
 							  startMove(oLi1[5],{height:50});
+							  animate=false;
 						});
 					 });
 				  });
@@ -129,6 +136,7 @@ window.onload=function(){
 	   addHandler(oPage[2],'swipeUp',switch3);
        //切换第三屏
 	   function switch3(){
+		   animate=true;
 		  oPage[3].style.webkitTransition="-webkit-transform 3000ms";
 	      oPage[3].style.webkitTransform='translate(0px,0px)  rotateX(0deg)';
 		  setTimeout(function(){
@@ -136,7 +144,9 @@ window.onload=function(){
 	        oTime1.style.webkitTransform='rotateY(0deg)';
 			oName1.style.webkitTransition="-webkit-transform 3000ms";
 	        oName1.style.webkitTransform='rotateY(0deg)';
-		    startMove(list2,{opacity:100});
+		    startMove(list2,{opacity:100},function(){
+			  animate=false;
+			});
 		  },2000);
 		  
 	   }
@@ -152,6 +162,7 @@ window.onload=function(){
 	   addHandler(oPage[3],'swipeUp',switch4);
        //切换第三屏
 	   function switch4(){
+		   animate=true;
 		  oPage[4].style.webkitTransition="-webkit-transform 3000ms";
 	      oPage[4].style.webkitTransform='rotateY(0deg) translate(0px,0px) ';
 		  setTimeout(function(){
@@ -159,7 +170,9 @@ window.onload=function(){
 	        oTime2.style.webkitTransform='rotateY(0deg)';
 			oName2.style.webkitTransition="-webkit-transform 3000ms";
 	        oName2.style.webkitTransform='rotateY(0deg)';
-		    startMove(list3,{opacity:100});
+		    startMove(list3,{opacity:100},function(){
+			  animate=false;
+			});
 		  },2000);
 	   }
 	   //向下滑第5屏
@@ -174,6 +187,7 @@ window.onload=function(){
        
 	   //切换第五屏
 	   function switch5(){
+		   animate=true;
 	     /*startMove(oPage[4],{opacity:0},function(){
 		   oPage[4].style.display='none';
 		 });*/
@@ -181,7 +195,7 @@ window.onload=function(){
 		 startMove(oPage[5],{opacity:100},function(){
 		    oP6content.style.webkitTransition="-webkit-transform 2000ms";
 	        oP6content.style.webkitTransform=' translate(0px,0px)';
-			
+			animate=false;
 		 });
 	   }
 	    //向下滑第6屏
@@ -190,7 +204,9 @@ window.onload=function(){
 		   oPage[5].style.display='none';
 		 });
 		 oPage[4].style.display='block';
-		 startMove(oPage[4],{opacity:100});
+		 startMove(oPage[4],{opacity:100},function(){
+		    animate=false;
+		 });
 		 num--;
 	   });
       
@@ -198,13 +214,15 @@ window.onload=function(){
 	   addHandler(oPage[5],'swipeUp',switch6);
 	   //切换第6屏
 	   function switch6(){
+		   animate=true;
 	    /*startMove(oPage[5],{opacity:0},function(){
 		   oPage[5].style.display='none';
 		 });*/
 		 oPage[6].style.display='block';
 		 startMove(oPage[6],{opacity:100},function(){
 		    oP7content.style.webkitTransition="-webkit-transform 1000ms";
-	        oP7content.style.webkitTransform=' translate(0px,0px)';		
+	        oP7content.style.webkitTransform=' translate(0px,0px)';	
+			animate=false;
 		 });
 	
 	   }
@@ -223,12 +241,15 @@ window.onload=function(){
        
 	   //切换第7屏
 	   function switch7(){
+		   animate=true;
 	    /* startMove(oPage[6],{opacity:0},function(){
 		   oPage[6].style.display='none';
 		 });*/
 		 oPage[7].style.display='block';
 		 startMove(oPage[7],{opacity:100},function(){
-		   startMove(thansYou,{opacity:100});
+		   startMove(thansYou,{opacity:100},function(){
+		      animate=false;
+		   });
 		 });
 		 nextIcon.style.display='none';
 	   }
